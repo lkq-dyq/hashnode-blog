@@ -1,0 +1,26 @@
+name: Publish to Hashnode
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'posts/**'
+      - '.github/workflows/publish-to-hashnode.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Publish to Hashnode
+        uses: Hashnode/publish-github-action@v1
+        with:
+          access-token: ${{ secrets.HASHNODE_PAT }}
+          # 改成你自己的 Hashnode 发布地址，例如 qinziheng.hashnode.dev 或 lkq-dyq.hashnode.dev
+          publication-host: lkq-dyq.hashnode.dev
+          posts-directory: posts
